@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from main branch
-                git branch: 'main', url: 'https://github.com/Harsha6404/hotstarby.git'
+                git branch: 'main', url: 'https://github.com/reddyhari3333-art/hotstarby.git'
 
                 // Verify files
                 sh 'pwd'
@@ -17,31 +17,6 @@ pipeline {
         stage('Build WAR') {
             steps {
                 sh 'mvn clean package'
-            }
-        }
-  stage('SonarQube Analysis') {
-    steps {
-        sh '''
-            mvn clean verify sonar:sonar \
-            -Dsonar.projectKey=hotspot \
-            -Dsonar.host.url=http://13.48.42.162:9000 \
-            -Dsonar.login=2d1669ed9bf092259b3c3017b684b5449a478abb
-        '''
-    }
-}
-
-
-         stage('artifact') {
-            steps {
-                nexusArtifactUploader artifacts: [[artifactId: 'myapp', classifier: '', file: 'target/myapp.war', type: 'war']], 
-  credentialsId: 'nexuscreds',
-  groupId: 'in.reyaz',
-  nexusUrl: '13.51.197.175:8081',
-  nexusVersion: 'nexus3',
-  protocol: 'http',
-  repository: 'hotspot',
-  version: '8.3.3-SNAPSHOT'
-
             }
         }
 
@@ -59,15 +34,6 @@ pipeline {
                 sh '''
                     docker rm -f con8 || true
                     docker run -d --name con8 -p 9943:8080 hotstar:v1
-                '''
-            }
-        }
-
-        stage('Docker Swarm Deploy') {
-            steps {
-                sh '''
-                    docker service update --image hotstar:v1 hotstarserv || \
-                    docker service create --name hotstarserv -p 8009:8080 --replicas=10 hotstar:v1
                 '''
             }
         }
