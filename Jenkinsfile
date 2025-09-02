@@ -24,7 +24,8 @@ pipeline {
             steps {
                 sh '''
                     docker rmi -f hotstar:v1 || true
-                    docker build -t hotstar:v1 -f /var/lib/jenkins/workspace/pipeline project/Dockerfile /var/lib/jenkins/workspace/pipeline project
+                    docker build -t hotstar:v1 -f "/var/lib/jenkins/workspace/pipeline project/Dockerfile" "/var/lib/jenkins/workspace/pipeline project"
+
 
                 '''
             }
