@@ -21,7 +21,7 @@ pipeline {
         }
         stage ('upload to nexus') {
             steps { 
-                nexusArtifactUploader artifacts: [[artifactId: 'myapp', classifier: '', file: 'target/myapp.war', type: 'war']], credentialsId: '', groupId: 'in.reyaz', nexusUrl: 'http://13.201.226.65:8082/', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '8.3.3'
+                nexusArtifactUploader artifacts: [[artifactId: 'myapp', classifier: '', file: 'target/myapp.war', type: 'war']], credentialsId: '', groupId: 'in.reyaz', nexusUrl: '13.201.226.65:8082', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '8.3.3'
             }
         }
 
